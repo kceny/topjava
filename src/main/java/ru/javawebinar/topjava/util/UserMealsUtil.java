@@ -30,7 +30,7 @@ public class UserMealsUtil {
 
         for (UserMeal userMeal : mealList) {
             LocalDate localDate = userMeal.getDateTime().toLocalDate();
-            Integer calories = userMeal.getCalories();
+            int calories = userMeal.getCalories();
             if (sumCaloriesPerDay.containsKey(localDate)) {
                 calories  = calories + sumCaloriesPerDay.get(localDate);
             }
@@ -84,7 +84,7 @@ public class UserMealsUtil {
         mealList.stream()
                 .collect(Collectors.groupingBy(userMeal -> userMeal.getDateTime().toLocalDate()))
                 .forEach((localDate, listUserMealByDate) -> {
-                    sumCaloriesPerDay.put(localDate, listUserMealByDate.stream().mapToInt(userMeal -> userMeal.getCalories()).sum());
+                    sumCaloriesPerDay.put(localDate, listUserMealByDate.stream().mapToInt(UserMeal::getCalories).sum());
                 });
 
         List<UserMealWithExcess> filteredMealsList = new ArrayList<>();
